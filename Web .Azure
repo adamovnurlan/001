@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сауалнама</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(to bottom right, #4e54c8, #8f94fb);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        textarea:focus {
+            border-color: #007bff;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Сауалнама</h1>
+        <form id="surveyForm" action="submit_form.php" method="POST">
+            <label for="Атым">Аты:</label>
+            <input type="text" id="first_name" name="Атым" required>
+
+            <label for="Тегім">Тегі:</label>
+            <input type="text" id="last_name" name="Тегім" required>
+
+            <label for="Әкемнің аты">Әкесінің аты:</label>
+            <input type="text" id="middle_name" name="Әкемнің аты">
+
+            <label for="Туған жылым">Туған жылы:</label>
+            <input type="date" id="dob" name="Туған жылым" required>
+
+            <label for="Туған жерім">Туған жері:</label>
+            <input type="text" id="birth_place" name="Туған жерім" required>
+
+            <label for="Ұнататын ісім">Ұнататын ісім:</label>
+            <textarea id="like" name="Ұнататын ісім" rows="4" required></textarea>
+
+            <label for="Ұнатпайтын ісім">Ұнатпайтын ісім:</label>
+            <textarea id="dislike" name="Ұнатпайтын ісім" rows="4" required></textarea>
+
+            <button type="submit">Жіберу</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("surveyForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            
+            var formValues = new FormData(this);
+            var formDataString = "";
+            for (var pair of formValues.entries()) {
+                formDataString += pair[0] + ': ' + pair[1] + '\n';
+            }
+
+            var newWindow = window.open("", "_blank", "width=400,height=400");
+            newWindow.document.write("<h2>Сіздін жауабыныз:</h2>");
+            newWindow.document.write("<pre>" + formDataString + "</pre>");
+            newWindow.document.close();
+        });
+    </script>
+</body>
+</html>
